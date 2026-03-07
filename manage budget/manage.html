@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Budget - Budget Buddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <img src="../logo/logo .png" alt="Budget Buddy Logo" class="logo">
+            </div>
+
+            <!-- Navigation Actions -->
+            <div class="nav-actions">
+                <!-- Add Transaction Button -->
+                <div class="nav-item">
+                    <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction">
+                        <span class="plus-icon">+</span>
+                    </button>
+                    <span class="nav-tooltip">Add Transaction</span>
+                </div>
+
+                <!-- Menu Button -->
+                <div class="nav-item">
+                    <button class="nav-btn menu-btn" id="menuBtn" title="Menu">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
+                </div>
+
+                <!-- Profile Button -->
+                <div class="nav-item">
+                    <button class="nav-btn profile-btn" id="profileBtn" title="Profile">
+                        <div class="profile-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 20c0-4.4-3.6-8-8-8s-8 3.6-8 8" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <span class="nav-tooltip">Profile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <nav class="dropdown-menu" id="dropdownMenu">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="../main page/index.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../view transaction/view.html" class="menu-link">
+                        <span class="menu-icon">📋</span>
+                        View Transactions
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../report/report.html" class="menu-link">
+                        <span class="menu-icon">📈</span>
+                        Reports
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="manage.html" class="menu-link active">
+                        <span class="menu-icon">🎯</span>
+                        Manage Budget
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Manage Budget</h1>
+                <p>Set and track your spending limits for different categories</p>
+            </div>
+
+            <!-- Budget Overview -->
+            <div class="budget-overview">
+                <div class="overview-card">
+                    <div class="card-icon">💰</div>
+                    <div class="card-content">
+                        <h3>Total Budget</h3>
+                        <div class="card-value">$2,500.00</div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3>Spent This Month</h3>
+                        <div class="card-value">$1,850.00</div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>Remaining Budget</h3>
+                        <div class="card-value">$650.00</div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon">📈</div>
+                    <div class="card-content">
+                        <h3>Budget Utilization</h3>
+                        <div class="card-value">74%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Categories -->
+            <div class="budget-categories">
+                <div class="section-header">
+                    <h2>Budget Categories</h2>
+                    <button class="btn btn-primary" id="addCategoryBtn">
+                        <span class="btn-icon">+</span>
+                        Add Category
+                    </button>
+                </div>
+
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Budget categories will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Budget Goals -->
+            <div class="budget-goals">
+                <h2>Budget Goals</h2>
+                <div class="goals-list" id="goalsList">
+                    <!-- Budget goals will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Budget Category</h3>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm" class="category-form">
+                    <div class="form-group">
+                        <label for="categoryName">Category Name</label>
+                        <select id="categoryName" required>
+                            <option value="">Select a category</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="bills">Bills & Utilities</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="education">Education</option>
+                            <option value="travel">Travel</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetAmount">Budget Amount ($)</label>
+                        <input type="number" id="budgetAmount" step="0.01" min="0" placeholder="0.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryColor">Color</label>
+                        <div class="color-options">
+                            <label class="color-option">
+                                <input type="radio" name="categoryColor" value="#ff6b6b" checked>
+                                <span class="color-preview" style="background: #ff6b6b"></span>
+                            </label>
+                            <label class="color-option">
+                                <input type="radio" name="categoryColor" value="#4ecdc4">
+                                <span class="color-preview" style="background: #4ecdc4"></span>
+                            </label>
+                            <label class="color-option">
+                                <input type="radio" name="categoryColor" value="#45b7d1">
+                                <span class="color-preview" style="background: #45b7d1"></span>
+                            </label>
+                            <label class="color-option">
+                                <input type="radio" name="categoryColor" value="#f9ca24">
+                                <span class="color-preview" style="background: #f9ca24"></span>
+                            </label>
+                            <label class="color-option">
+                                <input type="radio" name="categoryColor" value="#6c5ce7">
+                                <span class="color-preview" style="background: #6c5ce7"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="manage.js"></script>
+</body>
+</html>

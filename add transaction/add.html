@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction - Budget Buddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="add.css">
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <img src="../logo/logo .png" alt="Budget Buddy Logo" class="logo">
+            </div>
+
+            <!-- Navigation Actions -->
+            <div class="nav-actions">
+                <!-- Add Transaction Button -->
+                <div class="nav-item">
+                    <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction">
+                        <span class="plus-icon">+</span>
+                    </button>
+                    <span class="nav-tooltip">Add Transaction</span>
+                </div>
+
+                <!-- Menu Button -->
+                <div class="nav-item">
+                    <button class="nav-btn menu-btn" id="menuBtn" title="Menu">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
+                </div>
+
+                <!-- Profile Button -->
+                <div class="nav-item">
+                    <button class="nav-btn profile-btn" id="profileBtn" title="Profile">
+                        <div class="profile-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 20c0-4.4-3.6-8-8-8s-8 3.6-8 8" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <span class="nav-tooltip">Profile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <nav class="dropdown-menu" id="dropdownMenu">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="../main page/index.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../view transaction/view.html" class="menu-link">
+                        <span class="menu-icon">📋</span>
+                        View Transactions
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../report/report.html" class="menu-link">
+                        <span class="menu-icon">📈</span>
+                        Reports
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../manage budget/manage.html" class="menu-link">
+                        <span class="menu-icon">🎯</span>
+                        Manage Budget
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Add New Transaction</h1>
+                <p>Record your income or expense to keep track of your finances</p>
+            </div>
+
+            <div class="form-container">
+                <form id="transactionForm" class="transaction-form">
+                    <!-- Transaction Type -->
+                    <div class="form-group">
+                        <label for="transactionType">Transaction Type *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="transactionType" value="income" checked>
+                                <span class="radio-text">Income</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="transactionType" value="expense">
+                                <span class="radio-text">Expense</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="form-group">
+                        <label for="amount">Amount *</label>
+                        <div class="input-group">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select a category</option>
+                            <!-- Income Categories -->
+                            <optgroup label="Income" id="incomeCategories" style="display: none;">
+                                <option value="salary">Salary</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="business">Business</option>
+                                <option value="investment">Investment</option>
+                                <option value="gift">Gift</option>
+                                <option value="other-income">Other Income</option>
+                            </optgroup>
+                            <!-- Expense Categories -->
+                            <optgroup label="Expense" id="expenseCategories">
+                                <option value="food">Food & Dining</option>
+                                <option value="transportation">Transportation</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="education">Education</option>
+                                <option value="travel">Travel</option>
+                                <option value="other-expense">Other Expense</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Add a note about this transaction (optional)"></textarea>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select id="paymentMethod" name="paymentMethod">
+                            <option value="">Select payment method</option>
+                            <option value="cash">Cash</option>
+                            <option value="credit-card">Credit Card</option>
+                            <option value="debit-card">Debit Card</option>
+                            <option value="bank-transfer">Bank Transfer</option>
+                            <option value="digital-wallet">Digital Wallet</option>
+                            <option value="check">Check</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='../main page/index.html'">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-icon">✅</span>
+                <h3>Transaction Added Successfully!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your transaction has been recorded and added to your budget tracking.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeModal()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="add.js"></script>
+</body>
+</html>

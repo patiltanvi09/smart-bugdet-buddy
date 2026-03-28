@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
     if (!currentUser) {
-        window.location.href = '../create/create.html';
+        window.location.href = '../create/index.html';
         return;
     }
 
@@ -564,7 +564,7 @@ function deleteAccount() {
         localStorage.removeItem('userTheme');
         localStorage.removeItem('userLanguage');
         showNotification('Account deleted. Redirecting…', 'success');
-        setTimeout(function(){ window.location.href = '../create/create.html'; }, 2000);
+        setTimeout(function(){ window.location.href = '../create/index.html'; }, 2000);
     } catch(err) { showNotification('Error deleting account. Please try again.', 'error'); }
 }
 
@@ -572,7 +572,7 @@ function logout() {
     if (!confirm('Are you sure you want to logout?')) return;
     persistUser({ lastLogin: new Date().toLocaleString('en-IN') });
     localStorage.removeItem('currentUser');
-    window.location.href = '../create/create.html';
+    window.location.href = '../create/index.html';
 }
 
 window.exportData = exportData;

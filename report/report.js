@@ -66,7 +66,7 @@ applyTheme();
 
 document.addEventListener('DOMContentLoaded', function () {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (!user) { window.location.href = '../create/create.html'; return; }
+    if (!user) { window.location.href = '../create/index.html'; return; }
 
     initHeader();
     generateReport();

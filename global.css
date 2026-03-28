@@ -1,0 +1,194 @@
+/* ============================================================
+   BUDGET BUDDY — GLOBAL DARK MODE OVERRIDES  (global.css)
+   Link this file in EVERY HTML page. It fixes heading colours
+   and all white-background elements in dark mode.
+   ============================================================ */
+
+@keyframes slideInRight  { from{opacity:0;transform:translateX(100px)} to{opacity:1;transform:translateX(0)} }
+@keyframes slideOutRight { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(100px)} }
+
+.notification, .bb-notif {
+    position:fixed; top:20px; right:20px; padding:15px 20px;
+    border-radius:8px; font-size:14px; font-weight:500;
+    z-index:9999; max-width:400px; box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+.notification.success,.bb-notif.success { background:#2d5016; border:1px solid #4caf50; color:#c8e6c9; }
+.notification.error,  .bb-notif.error   { background:#5a1a1a; border:1px solid #f44336; color:#ffcdd2; }
+.notification.warning,.bb-notif.warning { background:#5a4a00; border:1px solid #ff9800; color:#ffe0b2; }
+.notification.info,   .bb-notif.info    { background:#1a3a5a; border:1px solid #2196f3; color:#bbdefb; }
+
+/* ============================================================
+   DARK MODE  —  body.theme-dark
+   ============================================================ */
+
+body.theme-dark { background:#0f1115 !important; color:#e0e0e0 !important; }
+
+/* ALL headings turn white */
+body.theme-dark h1,
+body.theme-dark h2,
+body.theme-dark h3,
+body.theme-dark h4,
+body.theme-dark h5,
+body.theme-dark h6,
+body.theme-dark .welcome-title,
+body.theme-dark .section-title,
+body.theme-dark .page-header h1,
+body.theme-dark .profile-info h2,
+body.theme-dark .modal-header h3,
+body.theme-dark .action-section h3,
+body.theme-dark .budget-goals h2,
+body.theme-dark .section-header h2,
+body.theme-dark .section-header h3,
+body.theme-dark .card-content h3,
+body.theme-dark .category-info h3,
+body.theme-dark .transaction-title,
+body.theme-dark .goal-details h4,
+body.theme-dark .goal-info h4,
+body.theme-dark .breakdown-category,
+body.theme-dark .chart-container h2,
+body.theme-dark .transactions-header h2 {
+    color: #ffffff !important;
+}
+
+/* Sub-text / labels / descriptions */
+body.theme-dark p,
+body.theme-dark label,
+body.theme-dark .page-header p,
+body.theme-dark .welcome-subtitle,
+body.theme-dark .stat-label-text,
+body.theme-dark .info-item label,
+body.theme-dark .transaction-date,
+body.theme-dark .transaction-meta,
+body.theme-dark .transaction-count,
+body.theme-dark .goal-details p,
+body.theme-dark .goal-info p,
+body.theme-dark .remaining-amount,
+body.theme-dark .breakdown-meta,
+body.theme-dark .detail-label,
+body.theme-dark .modal-body p,
+body.theme-dark .category-info p {
+    color: #aaaaaa !important;
+}
+
+/* Span / value text */
+body.theme-dark .info-item span,
+body.theme-dark .detail-value,
+body.theme-dark .card-value,
+body.theme-dark .stat-value,
+body.theme-dark .stat-value-text,
+body.theme-dark .action-text {
+    color: #e0e0e0 !important;
+}
+
+/* Main content area */
+body.theme-dark .main-content { background:#0f1115 !important; }
+
+/* White cards */
+body.theme-dark .stat-card,
+body.theme-dark .settings-section,
+body.theme-dark .profile-card,
+body.theme-dark .account-actions,
+body.theme-dark .budget-categories,
+body.theme-dark .budget-goals,
+body.theme-dark .overview-card,
+body.theme-dark .chart-section,
+body.theme-dark .filters-section,
+body.theme-dark .transactions-section,
+body.theme-dark .transactions-list,
+body.theme-dark .summary-card,
+body.theme-dark .breakdown-section,
+body.theme-dark .export-section,
+body.theme-dark .report-controls,
+body.theme-dark .form-container {
+    background: #1e2229 !important;
+    border-color: #2e3340 !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.4) !important;
+}
+
+/* Dividers */
+body.theme-dark .info-item,
+body.theme-dark .transaction-item,
+body.theme-dark .transaction-detail,
+body.theme-dark .breakdown-item { border-bottom-color: #2e3340 !important; }
+body.theme-dark .modal-header   { border-bottom-color: #2e3340 !important; }
+body.theme-dark .form-actions   { border-top-color:    #2e3340 !important; }
+
+/* Transactions */
+body.theme-dark .transaction-item { background:#1e2229 !important; border-color:#2e3340 !important; }
+body.theme-dark .transaction-item:hover { background:#252a33 !important; }
+body.theme-dark .transaction-icon { background:#252a33 !important; border-color:#3a3f4a !important; }
+
+/* Category cards */
+body.theme-dark .category-card { background:#1e2229 !important; border-color:#2e3340 !important; }
+body.theme-dark .category-card:hover { border-color:#4a9eff !important; }
+
+/* Goal items */
+body.theme-dark .goal-item,
+body.theme-dark .goal-summary-item { border-color:#2e3340 !important; }
+body.theme-dark .goal-item:hover,
+body.theme-dark .goal-summary-item:hover { background:#252a33 !important; }
+
+/* Quick action buttons */
+body.theme-dark .action-btn { background:#1e2229 !important; color:#e0e0e0 !important; border-color:#2e3340 !important; }
+body.theme-dark .action-btn:hover { background:#252a33 !important; }
+body.theme-dark .action-icon { background:#252a33 !important; border-color:#3a3f4a !important; }
+
+/* Dropdown menu */
+body.theme-dark .dropdown-menu { background:#1e2229 !important; border-color:#2e3340 !important; }
+body.theme-dark .menu-link { color:#e0e0e0 !important; }
+body.theme-dark .menu-link:hover,
+body.theme-dark .menu-link.active { background:rgba(255,255,255,.08) !important; color:#ffffff !important; }
+body.theme-dark .menu-link.active::after { background:#ffffff !important; }
+
+/* Modal */
+body.theme-dark .modal-content { background:#1e2229 !important; border:1px solid #2e3340 !important; }
+body.theme-dark .close-btn { color:#aaaaaa !important; }
+body.theme-dark .close-btn:hover { background:#2e3340 !important; color:#ffffff !important; }
+
+/* Form inputs */
+body.theme-dark input[type="text"],
+body.theme-dark input[type="number"],
+body.theme-dark input[type="date"],
+body.theme-dark input[type="email"],
+body.theme-dark input[type="password"],
+body.theme-dark input[type="tel"],
+body.theme-dark select,
+body.theme-dark textarea,
+body.theme-dark .form-group input,
+body.theme-dark .form-group select {
+    background: #252a33 !important;
+    border-color: #3a3f4a !important;
+    color: #e0e0e0 !important;
+}
+body.theme-dark input::placeholder,
+body.theme-dark textarea::placeholder { color:#666 !important; }
+body.theme-dark input:focus,
+body.theme-dark select:focus,
+body.theme-dark textarea:focus { border-color:#4a9eff !important; }
+
+/* Radio labels */
+body.theme-dark .radio-label { border-color:#3a3f4a !important; }
+body.theme-dark .radio-text  { color:#e0e0e0 !important; }
+
+/* Buttons */
+body.theme-dark .btn-secondary {
+    background:#252a33 !important; color:#e0e0e0 !important; border-color:#3a3f4a !important;
+}
+body.theme-dark .btn-secondary:hover { background:#2e3340 !important; }
+
+/* Chart active button */
+body.theme-dark .chart-btn.active {
+    background:#1e2229 !important; color:#28a745 !important; border:2px solid #28a745 !important;
+}
+
+/* Progress bar track */
+body.theme-dark .progress-bar { background:#2e3340 !important; }
+
+/* Status badges */
+body.theme-dark .status.enabled  { background:#1a3a1a !important; color:#66bb6a !important; }
+body.theme-dark .status.disabled { background:#3a1a1a !important; color:#ef5350 !important; }
+
+/* View-all link */
+body.theme-dark .view-all-link { color:#aaaaaa !important; }
+body.theme-dark .view-all-link:hover { color:#ffffff !important; }

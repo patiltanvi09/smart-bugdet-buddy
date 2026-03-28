@@ -8,28 +8,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="report.css">
+    <link rel="stylesheet" href="../global.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Fixed Header -->
     <header class="main-header">
         <div class="header-container">
-            <!-- Logo Section -->
             <div class="logo-section">
-                <img src="../logo/logo .png" alt="Budget Buddy Logo" class="logo">
+                <img src="../logo/logo.png" alt="Budget Buddy Logo" class="logo">
             </div>
-
-            <!-- Navigation Actions -->
             <div class="nav-actions">
-                <!-- Add Transaction Button -->
                 <div class="nav-item">
                     <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction">
                         <span class="plus-icon">+</span>
                     </button>
                     <span class="nav-tooltip">Add Transaction</span>
                 </div>
-
-                <!-- Menu Button -->
                 <div class="nav-item">
                     <button class="nav-btn menu-btn" id="menuBtn" title="Menu">
                         <span class="menu-line"></span>
@@ -37,8 +31,6 @@
                         <span class="menu-line"></span>
                     </button>
                 </div>
-
-                <!-- Profile Button -->
                 <div class="nav-item">
                     <button class="nav-btn profile-btn" id="profileBtn" title="Profile">
                         <div class="profile-icon">
@@ -52,39 +44,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Dropdown Menu -->
         <nav class="dropdown-menu" id="dropdownMenu">
             <ul class="menu-list">
-                <li class="menu-item">
-                    <a href="../main page/index.html" class="menu-link">
-                        <span class="menu-icon">📊</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../view transaction/view.html" class="menu-link">
-                        <span class="menu-icon">📋</span>
-                        View Transactions
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="report.html" class="menu-link active">
-                        <span class="menu-icon">📈</span>
-                        Reports
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../manage budget/manage.html" class="menu-link">
-                        <span class="menu-icon">🎯</span>
-                        Manage Budget
-                    </a>
-                </li>
+                <li class="menu-item"><a href="../main page/main.html" class="menu-link"><span class="menu-icon">📊</span>Dashboard</a></li>
+                <li class="menu-item"><a href="../view transaction/view.html" class="menu-link"><span class="menu-icon">📋</span>View Transactions</a></li>
+                <li class="menu-item"><a href="report.html" class="menu-link active"><span class="menu-icon">📈</span>Reports</a></li>
+                <li class="menu-item"><a href="../manage budget/manage.html" class="menu-link"><span class="menu-icon">🎯</span>Manage Budget</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <div class="page-header">
@@ -92,19 +61,16 @@
                 <p>Analyze your spending patterns and financial trends</p>
             </div>
 
-            <!-- Report Controls -->
             <div class="report-controls">
                 <div class="control-group">
                     <label for="reportType">Report Type</label>
                     <select id="reportType">
-                        <!-- default to Income vs Expense pie view -->
                         <option value="income-expense" selected>Income vs Expense</option>
                         <option value="overview">Overview</option>
                         <option value="category-breakdown">Category Breakdown</option>
                         <option value="monthly-trends">Monthly Trends</option>
                     </select>
                 </div>
-
                 <div class="control-group">
                     <label for="timeRange">Time Range</label>
                     <select id="timeRange">
@@ -114,84 +80,40 @@
                         <option value="all" selected>All Time</option>
                     </select>
                 </div>
-
                 <div class="control-group">
                     <button class="btn btn-primary" id="generateReport">Generate Report</button>
                 </div>
             </div>
 
-            <!-- Report Summary Cards -->
             <div class="summary-cards">
-                <div class="summary-card">
-                    <div class="card-icon">💰</div>
-                    <div class="card-content">
-                        <h3>Total Income</h3>
-                        <div class="card-value income-value" id="totalIncome">$0.00</div>
-                    </div>
-                </div>
-
-                <div class="summary-card">
-                    <div class="card-icon">💸</div>
-                    <div class="card-content">
-                        <h3>Total Expenses</h3>
-                        <div class="card-value expense-value" id="totalExpenses">$0.00</div>
-                    </div>
-                </div>
-
-                <div class="summary-card">
-                    <div class="card-icon">📈</div>
-                    <div class="card-content">
-                        <h3>Net Savings</h3>
-                        <div class="card-value savings-value" id="netSavings">$0.00</div>
-                    </div>
-                </div>
-
-                <div class="summary-card">
-                    <div class="card-icon">📊</div>
-                    <div class="card-content">
-                        <h3>Avg. Monthly</h3>
-                        <div class="card-value" id="avgMonthly">$0.00</div>
-                    </div>
-                </div>
+                <div class="summary-card"><div class="card-icon">💰</div><div class="card-content"><h3>Total Income</h3><div class="card-value income-value" id="totalIncome">₹0.00</div></div></div>
+                <div class="summary-card"><div class="card-icon">💸</div><div class="card-content"><h3>Total Expenses</h3><div class="card-value expense-value" id="totalExpenses">₹0.00</div></div></div>
+                <div class="summary-card"><div class="card-icon">📈</div><div class="card-content"><h3>Net Savings</h3><div class="card-value savings-value" id="netSavings">₹0.00</div></div></div>
+                <div class="summary-card"><div class="card-icon">📊</div><div class="card-content"><h3>Avg. Monthly</h3><div class="card-value" id="avgMonthly">₹0.00</div></div></div>
             </div>
 
-            <!-- Charts Section -->
             <div class="charts-section">
                 <div class="chart-container">
                     <h2>Income, Expenses & Savings</h2>
                     <canvas id="mainChart"></canvas>
                 </div>
-
                 <div class="chart-container">
                     <h2>Spending by Category</h2>
                     <canvas id="categoryChart"></canvas>
                 </div>
             </div>
 
-            <!-- Detailed Breakdown -->
             <div class="breakdown-section">
                 <h2>Category Breakdown</h2>
-                <div class="breakdown-list" id="categoryBreakdown">
-                    <!-- Category breakdown will be populated by JavaScript -->
-                </div>
+                <div class="breakdown-list" id="categoryBreakdown"></div>
             </div>
 
-            <!-- Export Options -->
             <div class="export-section">
                 <h2>Export Report</h2>
                 <div class="export-buttons">
-                    <button class="btn btn-secondary" onclick="exportToPDF()">
-                        <span class="export-icon">📄</span>
-                        Export as PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="exportToCSV()">
-                        <span class="export-icon">📊</span>
-                        Export as CSV
-                    </button>
-                    <button class="btn btn-secondary" onclick="printReport()">
-                        <span class="export-icon">🖨️</span>
-                        Print Report
-                    </button>
+                    <button class="btn btn-secondary" onclick="exportToPDF()"><span class="export-icon">📄</span> Export as PDF</button>
+                    <button class="btn btn-secondary" onclick="exportToCSV()"><span class="export-icon">📊</span> Export as CSV</button>
+                    <button class="btn btn-secondary" onclick="printReport()"><span class="export-icon">🖨️</span> Print Report</button>
                 </div>
             </div>
         </div>

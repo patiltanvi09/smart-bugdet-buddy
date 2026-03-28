@@ -7,38 +7,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../global.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Fixed Header -->
     <header class="main-header">
         <div class="header-container">
-            <!-- Logo Section -->
             <div class="logo-section">
-                <img src="../logo/logo .png" alt="Budget Buddy Logo" class="logo">
+                <img src="../logo/logo.png" alt="Budget Buddy Logo" class="logo">
             </div>
-
-            <!-- Navigation Actions -->
             <div class="nav-actions">
-                <!-- Add Transaction Button -->
                 <div class="nav-item">
-                    <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction" >
+                    <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction">
                         <span class="plus-icon">+</span>
                     </button>
                     <span class="nav-tooltip">Add Transaction</span>
                 </div>
-
-                <!-- Menu Button -->
                 <div class="nav-item">
                     <button class="nav-btn menu-btn" id="menuBtn" title="Menu">
                         <span class="menu-line"></span>
                         <span class="menu-line"></span>
                         <span class="menu-line"></span>
                     </button>
+                    <span class="nav-tooltip">Menu</span>
                 </div>
-
-                <!-- Profile Button -->
                 <div class="nav-item">
                     <button class="nav-btn profile-btn" id="profileBtn" title="Profile">
                         <div class="profile-icon">
@@ -52,91 +45,68 @@
                 </div>
             </div>
         </div>
-
-        <!-- Dropdown Menu -->
         <nav class="dropdown-menu" id="dropdownMenu">
             <ul class="menu-list">
-                <li class="menu-item">
-                    <a href="index.html" class="menu-link active">
-                        <span class="menu-icon">📊</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../view transaction/view.html" class="menu-link">
-                        <span class="menu-icon">📋</span>
-                        View Transactions
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../report/report.html" class="menu-link">
-                        <span class="menu-icon">📈</span>
-                        Reports
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../manage budget/manage.html" class="menu-link">
-                        <span class="menu-icon">🎯</span>
-                        Manage Budget
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../profile/profile.html" class="menu-link">
-                        <span class="menu-icon">👤</span>
-                        Profile
-                    </a>
-                </li>
+                <li class="menu-item"><a href="main.html" class="menu-link active"><span class="menu-icon">📊</span>Dashboard</a></li>
+                <li class="menu-item"><a href="../view transaction/view.html" class="menu-link"><span class="menu-icon">📋</span>View Transactions</a></li>
+                <li class="menu-item"><a href="../report/report.html" class="menu-link"><span class="menu-icon">📈</span>Reports</a></li>
+                <li class="menu-item"><a href="../manage budget/manage.html" class="menu-link"><span class="menu-icon">🎯</span>Manage Budget</a></li>
+                <li class="menu-item"><a href="../profile/profile.html" class="menu-link"><span class="menu-icon">👤</span>Profile</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="dashboard-container">
-            <!-- Welcome Section -->
             <section class="welcome-section">
                 <h1 class="welcome-title">Welcome back!</h1>
                 <p class="welcome-subtitle">Here's your financial overview</p>
             </section>
 
-            <!-- Stats Cards -->
             <section class="stats-section">
                 <div class="stats-grid">
                     <div class="stat-card income-card">
                         <div class="stat-label-text">Total Income</div>
-                        <div class="stat-value-text income-text">$0.00</div>
+                        <div class="stat-value-text income-text">₹0.00</div>
                     </div>
-
                     <div class="stat-card expense-card">
                         <div class="stat-label-text">Total Expense</div>
-                        <div class="stat-value-text expense-text">$0.00</div>
+                        <div class="stat-value-text expense-text">₹0.00</div>
                     </div>
-
                     <div class="stat-card remaining-card">
                         <div class="stat-label-text">Total Savings</div>
-                        <div class="stat-value-text remaining-text">$0.00</div>
+                        <div class="stat-value-text remaining-text">₹0.00</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Chart Controls -->
             <section class="chart-controls-section">
-                <button class="chart-btn active" id="monthlyChartBtn" data-chart-type="monthly">
-                    📅 Monthly Chart
-                </button>
-                <button class="chart-btn" id="weeklyChartBtn" data-chart-type="weekly">
-                    📊 Weekly Chart
-                </button>
+                <button class="chart-btn active" id="monthlyChartBtn">📅 Monthly Chart</button>
+                <button class="chart-btn" id="weeklyChartBtn">📊 Weekly Chart</button>
             </section>
 
-            <!-- Chart Section -->
             <section class="chart-section">
                 <div class="chart-container">
                     <canvas id="financialChart"></canvas>
                 </div>
             </section>
 
-            <!-- Quick Actions -->
+            <section class="recent-transactions">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Transactions</h2>
+                    <a href="../view transaction/view.html" class="view-all-link">View All →</a>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <div class="transaction-item">
+                        <div class="transaction-icon">📋</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">No transactions yet</div>
+                            <div class="transaction-date">Click + to add your first transaction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="quick-actions">
                 <h2 class="section-title">Quick Actions</h2>
                 <div class="actions-grid">
@@ -144,17 +114,14 @@
                         <div class="action-icon">➕</div>
                         <span class="action-text">Add Transaction</span>
                     </button>
-
                     <button class="action-btn" onclick="window.location.href='../manage budget/manage.html'">
                         <div class="action-icon">🎯</div>
                         <span class="action-text">Manage Budget</span>
                     </button>
-
                     <button class="action-btn" onclick="window.location.href='../report/report.html'">
                         <div class="action-icon">📊</div>
                         <span class="action-text">View Reports</span>
                     </button>
-
                     <button class="action-btn" onclick="window.location.href='../view transaction/view.html'">
                         <div class="action-icon">📋</div>
                         <span class="action-text">All Transactions</span>
@@ -164,6 +131,16 @@
         </div>
     </main>
 
-    <script src="index.js"></script>
+    <div id="transactionDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transaction Details</h3>
+                <button class="close-btn" onclick="closeTransactionModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="transactionDetailBody"></div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>

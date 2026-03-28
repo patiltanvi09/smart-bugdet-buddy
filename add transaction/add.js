@@ -1,352 +1,260 @@
-// Add Transaction Page JavaScript
+// ============================================================
+// BUDGET BUDDY - ADD TRANSACTION (FIXED)
+// ============================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize header functionality
-    initializeHeader();
+const CURRENCY_SYMBOLS = { USD:'$', EUR:'€', GBP:'£', JPY:'¥', INR:'₹' };
+const CURRENCY_RATES   = { USD:1/83.12, EUR:0.92/83.12, GBP:0.79/83.12, JPY:151.50/83.12, INR:1 };
 
-    // Initialize the page
-    initializePage();
+// Category value → display name map (matches option values in HTML)
+const CATEGORY_DISPLAY = {
+    'salary':'Salary','freelance':'Freelance','business':'Business',
+    'investment':'Investment','gift':'Gift','other-income':'Other Income',
+    'food':'Food & Dining','transportation':'Transportation','shopping':'Shopping',
+    'entertainment':'Entertainment','bills':'Bills & Utilities','healthcare':'Healthcare',
+    'education':'Education','travel':'Travel','other-expense':'Other Expense'
+};
 
-    // Set up event listeners
-    setupEventListeners();
-});
-
-function initializeHeader() {
-    // Elements
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    // Menu Toggle Functionality
-    menuBtn.addEventListener('click', function() {
-        const isActive = dropdownMenu.classList.contains('active');
-
-        if (isActive) {
-            // Close menu
-            dropdownMenu.classList.remove('active');
-            menuBtn.classList.remove('active');
-        } else {
-            // Open menu
-            dropdownMenu.classList.add('active');
-            menuBtn.classList.add('active');
-        }
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.classList.remove('active');
-            menuBtn.classList.remove('active');
-        }
-    });
-
-    // Close menu when clicking on a menu item
-    const menuLinks = document.querySelectorAll('.menu-link');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            dropdownMenu.classList.remove('active');
-            menuBtn.classList.remove('active');
-        });
-    });
-}
-
-function initializePage() {
-    // Set today's date as default
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').value = today;
-
-    // Show expense categories by default (since expense is checked)
-    toggleCategories();
-}
-
-function setupEventListeners() {
-    // Transaction type radio buttons
-    const transactionTypeRadios = document.querySelectorAll('input[name="transactionType"]');
-    transactionTypeRadios.forEach(radio => {
-        radio.addEventListener('change', toggleCategories);
-    });
-
-    // Form submission
-    const form = document.getElementById('transactionForm');
-    form.addEventListener('submit', handleFormSubmit);
-
-    // Amount input formatting
-    const amountInput = document.getElementById('amount');
-    amountInput.addEventListener('input', formatAmountInput);
-
-    // Dropdown functionality
-    setupDropdown();
-}
-
-function toggleCategories() {
-    const transactionType = document.querySelector('input[name="transactionType"]:checked').value;
-    const incomeCategories = document.getElementById('incomeCategories');
-    const expenseCategories = document.getElementById('expenseCategories');
-    const categorySelect = document.getElementById('category');
-
-    if (transactionType === 'income') {
-        incomeCategories.style.display = 'block';
-        expenseCategories.style.display = 'none';
-        categorySelect.value = 'salary'; // Default to salary for income
-    } else {
-        incomeCategories.style.display = 'none';
-        expenseCategories.style.display = 'block';
-        categorySelect.value = 'food'; // Default to food for expense
-    }
-}
-
-function formatAmountInput(event) {
-    let value = event.target.value;
-
-    // Remove any non-numeric characters except decimal point
-    value = value.replace(/[^0-9.]/g, '');
-
-    // Ensure only one decimal point
-    const parts = value.split('.');
-    if (parts.length > 2) {
-        value = parts[0] + '.' + parts.slice(1).join('');
-    }
-
-    // Limit to 2 decimal places
-    if (parts[1] && parts[1].length > 2) {
-        value = parts[0] + '.' + parts[1].substring(0, 2);
-    }
-
-    event.target.value = value;
-}
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-
-    // Validate form
-    if (!validateForm()) {
-        return;
-    }
-
-    // Collect form data
-    const formData = collectFormData();
-
-    // Simulate API call (in a real app, this would send data to server)
-    simulateTransactionSubmission(formData);
-}
-
-function validateForm() {
-    let isValid = true;
-    const errors = [];
-
-    // Check required fields
-    const amount = document.getElementById('amount').value;
-    const category = document.getElementById('category').value;
-    const date = document.getElementById('date').value;
-
-    if (!amount || parseFloat(amount) <= 0) {
-        errors.push('Please enter a valid amount greater than 0');
-        highlightField('amount');
-        isValid = false;
-    } else {
-        removeFieldHighlight('amount');
-    }
-
-    if (!category) {
-        errors.push('Please select a category');
-        highlightField('category');
-        isValid = false;
-    } else {
-        removeFieldHighlight('category');
-    }
-
-    if (!date) {
-        errors.push('Please select a date');
-        highlightField('date');
-        isValid = false;
-    } else {
-        removeFieldHighlight('date');
-    }
-
-    // Check if date is not in the future
-    if (date) {
-        const selectedDate = new Date(date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        if (selectedDate > today) {
-            errors.push('Transaction date cannot be in the future');
-            highlightField('date');
-            isValid = false;
-        }
-    }
-
-    // Display errors if any
-    if (!isValid) {
-        displayErrors(errors);
-    } else {
-        hideErrors();
-    }
-
-    return isValid;
-}
-
-function highlightField(fieldId) {
-    const field = document.getElementById(fieldId);
-    field.style.borderColor = '#dc3545';
-    field.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
-}
-
-function removeFieldHighlight(fieldId) {
-    const field = document.getElementById(fieldId);
-    field.style.borderColor = '#e0e0e0';
-    field.style.boxShadow = 'none';
-}
-
-function displayErrors(errors) {
-    // Remove existing error messages
-    hideErrors();
-
-    // Create error container
-    const formContainer = document.querySelector('.form-container');
-    const errorDiv = document.createElement('div');
-    errorDiv.id = 'errorMessages';
-    errorDiv.style.cssText = `
-        background: #f8d7da;
-        color: #721c24;
-        padding: 12px 16px;
-        border-radius: 8px;
-        border: 1px solid #f5c6cb;
-        margin-bottom: 20px;
-        font-size: 14px;
-    `;
-
-    errorDiv.innerHTML = '<strong>Please fix the following errors:</strong><ul style="margin-top: 8px; margin-bottom: 0;">' +
-        errors.map(error => `<li>${error}</li>`).join('') + '</ul>';
-
-    formContainer.insertBefore(errorDiv, document.querySelector('.transaction-form'));
-}
-
-function hideErrors() {
-    const errorDiv = document.getElementById('errorMessages');
-    if (errorDiv) {
-        errorDiv.remove();
-    }
-}
-
-function collectFormData() {
+function getPrefs() {
     return {
-        type: document.querySelector('input[name="transactionType"]:checked').value,
-        amount: parseFloat(document.getElementById('amount').value),
-        category: document.getElementById('category').value,
-        date: document.getElementById('date').value,
-        description: document.getElementById('description').value,
-        paymentMethod: document.getElementById('paymentMethod').value,
-        timestamp: new Date().toISOString()
+        currency : localStorage.getItem('userCurrency')  || 'INR',
+        theme    : localStorage.getItem('userTheme')     || 'light',
+        language : localStorage.getItem('userLanguage')  || 'en'
     };
 }
 
-function simulateTransactionSubmission(formData) {
-    // Show loading state
-    const submitBtn = document.querySelector('.btn-primary');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Adding Transaction...';
-    submitBtn.disabled = true;
-
-    // Simulate API delay
-    setTimeout(() => {
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-
-        // Save transaction locally
-        saveTransaction(formData);
-
-        // Show success modal
-        showSuccessModal(formData);
-
-        // In a real app, you would redirect or update the UI here
-        // For now, we'll just show the modal
-    }, 1500);
+function fmt(amountINR) {
+    const { currency } = getPrefs();
+    const symbol = CURRENCY_SYMBOLS[currency] || currency;
+    const rate   = CURRENCY_RATES[currency]   || 1;
+    return symbol + (amountINR * rate).toFixed(2);
 }
 
-function showSuccessModal(formData) {
-    const modal = document.getElementById('successModal');
-    modal.classList.add('show');
-
-    // Update modal content with transaction details
-    const modalBody = modal.querySelector('.modal-body');
-    modalBody.innerHTML = `
-        <p><strong>Type:</strong> ${formData.type.charAt(0).toUpperCase() + formData.type.slice(1)}</p>
-        <p><strong>Amount:</strong> $${formData.amount.toFixed(2)}</p>
-        <p><strong>Category:</strong> ${formatCategoryName(formData.category)}</p>
-        <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
-        ${formData.description ? `<p><strong>Description:</strong> ${formData.description}</p>` : ''}
-        <br>
-        <p>Your transaction has been recorded and added to your budget tracking.</p>
-    `;
+// Convert displayed amount back to INR for storage
+function toINR(amount) {
+    const { currency } = getPrefs();
+    const rate = CURRENCY_RATES[currency] || 1;
+    return amount / rate;   // displayed → INR
 }
 
-function closeModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.remove('show');
-
-    // Optional: Reset form after closing modal
-    setTimeout(() => {
-        document.getElementById('transactionForm').reset();
-        initializePage(); // Reset to default state
-        // redirect back to dashboard so new totals/graph appear
-        window.location.href = '../main page/index.html';
-    }, 300);
-}
-
-function formatCategoryName(category) {
-    return category.split('-').map(word =>
-        word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
-
-function setupDropdown() {
-    // The dropdown functionality is handled by CSS hover, but we can add click functionality for mobile
-    const dropdownBtn = document.querySelector('.dropdown-btn');
-    const dropdownContent = document.querySelector('.dropdown-content');
-
-    if (window.innerWidth <= 768) {
-        dropdownBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            dropdownContent.style.opacity = dropdownContent.style.opacity === '1' ? '0' : '1';
-            dropdownContent.style.visibility = dropdownContent.style.visibility === 'visible' ? 'hidden' : 'visible';
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function() {
-            dropdownContent.style.opacity = '0';
-            dropdownContent.style.visibility = 'hidden';
-        });
+function applyTheme() {
+    const theme = getPrefs().theme;
+    if (theme === 'dark') {
+        document.body.style.background = '#1a1d23';
+        document.body.style.color = '#e0e0e0';
+    } else {
+        document.body.style.background = '#f4f6f7';
+        document.body.style.color = '#333333';
     }
 }
 
-// Utility function to format currency display
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(amount);
+function updateCurrencySymbol() {
+    const sym = document.querySelector('.currency-symbol');
+    if (sym) sym.textContent = CURRENCY_SYMBOLS[getPrefs().currency] || '₹';
 }
 
-// Local storage helpers
-function getStoredTransactions() {
-    const stored = localStorage.getItem('budgetBuddyTransactions');
-    return stored ? JSON.parse(stored) : [];
+function showNotification(msg, type='info') {
+    document.querySelectorAll('.bb-notif').forEach(n=>n.remove());
+    const colors = {
+        success:{ bg:'#2d5016', border:'#4caf50', text:'#c8e6c9' },
+        error  :{ bg:'#5a1a1a', border:'#f44336', text:'#ffcdd2' },
+        info   :{ bg:'#1a3a5a', border:'#2196f3', text:'#bbdefb' }
+    };
+    const c = colors[type] || colors.info;
+    const n = document.createElement('div');
+    n.className = 'bb-notif';
+    n.textContent = msg;
+    Object.assign(n.style,{
+        position:'fixed',top:'20px',right:'20px',padding:'15px 20px',
+        borderRadius:'8px',fontSize:'14px',fontWeight:'500',zIndex:'9999',
+        maxWidth:'400px',boxShadow:'0 4px 12px rgba(0,0,0,.15)',
+        background:c.bg, border:`1px solid ${c.border}`, color:c.text
+    });
+    document.body.appendChild(n);
+    setTimeout(()=>n.remove(), 3500);
 }
 
-function saveTransaction(tx) {
-    const transactions = getStoredTransactions();
-    // ensure amount is number
-    tx.amount = parseFloat(tx.amount);
-    transactions.push(tx);
-    localStorage.setItem('budgetBuddyTransactions', JSON.stringify(transactions));
+// Apply immediately on load
+applyTheme();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user) { window.location.href = '../create/create.html'; return; }
+
+    initHeader();
+    updateCurrencySymbol();
+
+    // Set today as default date
+    const dateInput = document.getElementById('date');
+    if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+    }
+
+    // Transaction type radio → toggle categories
+    document.querySelectorAll('input[name="transactionType"]').forEach(radio => {
+        radio.addEventListener('change', toggleCategories);
+    });
+    toggleCategories();
+
+    // Form submit
+    const form = document.getElementById('transactionForm');
+    if (form) form.addEventListener('submit', handleSubmit);
+
+    // Listen for pref changes
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'userCurrency') { updateCurrencySymbol(); }
+        if (e.key === 'userTheme')    { applyTheme(); }
+    });
+
+    setInterval(()=>{ applyTheme(); updateCurrencySymbol(); }, 1000);
+});
+
+function initHeader() {
+    const menuBtn      = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const addBtn       = document.getElementById('addTransactionBtn');
+    const profileBtn   = document.getElementById('profileBtn');
+
+    if (menuBtn && dropdownMenu) {
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        });
+        document.addEventListener('click', function(e) {
+            if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
+        });
+    }
+    if (addBtn)     addBtn.addEventListener('click', ()=>window.location.href='../add transaction/add.html');
+    if (profileBtn) profileBtn.addEventListener('click', ()=>window.location.href='../profile/profile.html');
+
+    document.querySelectorAll('.menu-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = this.getAttribute('href');
+        });
+    });
 }
+
+function toggleCategories() {
+    const type = document.querySelector('input[name="transactionType"]:checked')?.value || 'expense';
+    const incGrp = document.getElementById('incomeCategories');
+    const expGrp = document.getElementById('expenseCategories');
+    const catSel = document.getElementById('category');
+    if (!incGrp || !expGrp || !catSel) return;
+
+    if (type === 'income') {
+        incGrp.style.display = '';
+        expGrp.style.display = 'none';
+    } else {
+        incGrp.style.display = 'none';
+        expGrp.style.display = '';
+    }
+    catSel.value = '';
+}
+
+function validateForm() {
+    const amount   = document.getElementById('amount').value;
+    const category = document.getElementById('category').value;
+    const date     = document.getElementById('date').value;
+    const errors   = [];
+
+    if (!amount || parseFloat(amount) <= 0) errors.push('Please enter a valid amount greater than 0');
+    if (!category) errors.push('Please select a category');
+    if (!date)     errors.push('Please select a date');
+
+    const existing = document.getElementById('formErrors');
+    if (existing) existing.remove();
+
+    if (errors.length > 0) {
+        const div = document.createElement('div');
+        div.id = 'formErrors';
+        div.style.cssText='background:#f8d7da;color:#721c24;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:14px;';
+        div.innerHTML = '<strong>Please fix:</strong><br>' + errors.join('<br>');
+        const fc = document.querySelector('.form-container');
+        if (fc) fc.insertBefore(div, document.querySelector('.transaction-form'));
+        return false;
+    }
+    return true;
+}
+
+function handleSubmit(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user) return;
+
+    const catValue   = document.getElementById('category').value;
+    const catDisplay = CATEGORY_DISPLAY[catValue] || catValue; // Use display name for storage
+
+    const rawAmount  = parseFloat(document.getElementById('amount').value) || 0;
+    const amountINR  = toINR(rawAmount); // Convert input currency → INR for storage
+
+    const tx = {
+        id           : 'txn_' + Date.now() + '_' + Math.random().toString(36).substr(2,9),
+        type         : document.querySelector('input[name="transactionType"]:checked').value,
+        amount       : amountINR,            // always stored in INR
+        categoryValue: catValue,             // raw select value
+        category     : catDisplay,           // display name used everywhere
+        date         : document.getElementById('date').value,
+        description  : document.getElementById('description').value,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        timestamp    : new Date().toISOString()
+    };
+
+    // Save transaction
+    const key = 'budgetTransactions_' + user.id;
+    const txns = JSON.parse(localStorage.getItem(key) || '[]');
+    txns.push(tx);
+    localStorage.setItem(key, JSON.stringify(txns));
+
+    // Sync budget category spending if expense
+    if (tx.type === 'expense') {
+        syncCategorySpending(user.id, tx);
+    }
+
+    // Show success modal
+    const modal = document.getElementById('successModal');
+    if (modal) {
+        const body = modal.querySelector('.modal-body p');
+        if (body) body.textContent = `${tx.type === 'income' ? 'Income' : 'Expense'} of ${fmt(amountINR)} (${catDisplay}) recorded.`;
+        modal.classList.add('show');
+    }
+}
+
+function syncCategorySpending(userId, newTx) {
+    // Re-calculate spending for all categories from scratch (accurate)
+    const allTxns = JSON.parse(localStorage.getItem('budgetTransactions_' + userId) || '[]');
+    const cats    = JSON.parse(localStorage.getItem('budgetCategories_'    + userId) || '[]');
+    const now     = new Date();
+    const curM    = now.getMonth();
+    const curY    = now.getFullYear();
+
+    cats.forEach(cat => {
+        cat.spent = 0;
+        allTxns.forEach(tx => {
+            if (tx.type !== 'expense') return;
+            const d = new Date(tx.date);
+            if (d.getMonth() === curM && d.getFullYear() === curY && tx.category === cat.name) {
+                cat.spent += parseFloat(tx.amount) || 0;
+            }
+        });
+    });
+
+    localStorage.setItem('budgetCategories_' + userId, JSON.stringify(cats));
+}
+
+window.closeModal = function() {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.remove('show');
+    // Reset form and go to dashboard
+    const form = document.getElementById('transactionForm');
+    if (form) form.reset();
+    toggleCategories();
+    const dateInput = document.getElementById('date');
+    if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+    setTimeout(()=>{ window.location.href = '../main page/main.html'; }, 200);
+};

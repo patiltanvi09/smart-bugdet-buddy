@@ -8,27 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="view.css">
+    <link rel="stylesheet" href="../global.css">
 </head>
 <body>
-    <!-- Fixed Header -->
     <header class="main-header">
         <div class="header-container">
-            <!-- Logo Section -->
             <div class="logo-section">
-                <img src="../logo/logo .png" alt="Budget Buddy Logo" class="logo">
+                <img src="../logo/logo.png" alt="Budget Buddy Logo" class="logo">
             </div>
-
-            <!-- Navigation Actions -->
             <div class="nav-actions">
-                <!-- Add Transaction Button -->
                 <div class="nav-item">
                     <button class="nav-btn add-transaction-btn" id="addTransactionBtn" title="Add Transaction">
                         <span class="plus-icon">+</span>
                     </button>
                     <span class="nav-tooltip">Add Transaction</span>
                 </div>
-
-                <!-- Menu Button -->
                 <div class="nav-item">
                     <button class="nav-btn menu-btn" id="menuBtn" title="Menu">
                         <span class="menu-line"></span>
@@ -36,8 +30,6 @@
                         <span class="menu-line"></span>
                     </button>
                 </div>
-
-                <!-- Profile Button -->
                 <div class="nav-item">
                     <button class="nav-btn profile-btn" id="profileBtn" title="Profile">
                         <div class="profile-icon">
@@ -51,39 +43,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Dropdown Menu -->
         <nav class="dropdown-menu" id="dropdownMenu">
             <ul class="menu-list">
-                <li class="menu-item">
-                    <a href="../main page/index.html" class="menu-link">
-                        <span class="menu-icon">📊</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="view.html" class="menu-link active">
-                        <span class="menu-icon">📋</span>
-                        View Transactions
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../report/report.html" class="menu-link">
-                        <span class="menu-icon">📈</span>
-                        Reports
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="../manage budget/manage.html" class="menu-link">
-                        <span class="menu-icon">🎯</span>
-                        Manage Budget
-                    </a>
-                </li>
+                <li class="menu-item"><a href="../main page/main.html" class="menu-link"><span class="menu-icon">📊</span>Dashboard</a></li>
+                <li class="menu-item"><a href="view.html" class="menu-link active"><span class="menu-icon">📋</span>View Transactions</a></li>
+                <li class="menu-item"><a href="../report/report.html" class="menu-link"><span class="menu-icon">📈</span>Reports</a></li>
+                <li class="menu-item"><a href="../manage budget/manage.html" class="menu-link"><span class="menu-icon">🎯</span>Manage Budget</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <div class="page-header">
@@ -91,27 +60,14 @@
                 <p>View and manage all your financial transactions</p>
             </div>
 
-            <!-- Summary Stats -->
             <div class="summary-stats">
                 <div class="stats-grid">
-                    <div class="stat-card income-card">
-                        <div class="stat-label-text">Total Income</div>
-                        <div class="stat-value-text income-text">$0.00</div>
-                    </div>
-
-                    <div class="stat-card expense-card">
-                        <div class="stat-label-text">Total Expense</div>
-                        <div class="stat-value-text expense-text">$0.00</div>
-                    </div>
-
-                    <div class="stat-card remaining-card">
-                        <div class="stat-label-text">Total Savings</div>
-                        <div class="stat-value-text remaining-text">$0.00</div>
-                    </div>
+                    <div class="stat-card income-card"><div class="stat-label-text">Total Income</div><div class="stat-value-text income-text">₹0.00</div></div>
+                    <div class="stat-card expense-card"><div class="stat-label-text">Total Expense</div><div class="stat-value-text expense-text">₹0.00</div></div>
+                    <div class="stat-card remaining-card"><div class="stat-label-text">Total Savings</div><div class="stat-value-text remaining-text">₹0.00</div></div>
                 </div>
             </div>
 
-            <!-- Filters Section -->
             <div class="filters-section">
                 <div class="filters-grid">
                     <div class="filter-group">
@@ -122,21 +78,10 @@
                             <option value="expense">Expenses Only</option>
                         </select>
                     </div>
-
                     <div class="filter-group">
                         <label for="filterCategory">Category</label>
-                        <select id="filterCategory">
-                            <option value="all">All Categories</option>
-                            <option value="food">Food & Dining</option>
-                            <option value="transportation">Transportation</option>
-                            <option value="shopping">Shopping</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="bills">Bills & Utilities</option>
-                            <option value="salary">Salary</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <select id="filterCategory"><option value="all">All Categories</option></select>
                     </div>
-
                     <div class="filter-group">
                         <label for="filterDate">Date Range</label>
                         <select id="filterDate">
@@ -147,7 +92,6 @@
                             <option value="year">This Year</option>
                         </select>
                     </div>
-
                     <div class="filter-group">
                         <label for="search">Search</label>
                         <input type="text" id="search" placeholder="Search transactions...">
@@ -155,38 +99,30 @@
                 </div>
             </div>
 
-            <!-- Transactions List -->
             <div class="transactions-section">
                 <div class="transactions-header">
                     <h2>Recent Transactions</h2>
                     <div class="transaction-count">Showing <span id="transactionCount">0</span> transactions</div>
                 </div>
-
                 <div class="transactions-list" id="transactionsList">
-                    <!-- Transactions will be populated by JavaScript -->
                     <div class="no-transactions">
                         <div class="no-transactions-icon">📋</div>
                         <h3>No transactions found</h3>
-                        <p>You haven't added any transactions yet. Click the + button to add your first transaction.</p>
-                        <button class="btn btn-primary" onclick="window.location.href='../add transaction/add.html'">
-                            Add Transaction
-                        </button>
+                        <p>You haven't added any transactions yet.</p>
+                        <button class="btn btn-primary" onclick="window.location.href='../add transaction/add.html'">Add Transaction</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Transaction Detail Modal -->
     <div id="transactionModal" class="modal">
         <div class="modal-content transaction-modal-content">
             <div class="modal-header">
                 <h3>Transaction Details</h3>
                 <button class="close-btn" onclick="closeTransactionModal()">&times;</button>
             </div>
-            <div class="modal-body" id="transactionDetails">
-                <!-- Transaction details will be populated here -->
-            </div>
+            <div class="modal-body" id="transactionDetails"></div>
         </div>
     </div>
 

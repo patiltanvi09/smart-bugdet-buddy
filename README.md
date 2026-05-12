@@ -48,7 +48,7 @@ BBD2/
 │   ├── forgot-password.html # Password recovery
 │   ├── forgot-password.css  # Recovery styles
 │   └── forgot-password.js   # Recovery logic
-├── main page/
+├── main-page/
 │   ├── index.html           # Main dashboard
 │   ├── index.css            # Dashboard styles
 │   └── index.js             # Dashboard functionality

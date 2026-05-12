@@ -66,7 +66,7 @@ function showNotification(message, type) {
 
 function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 function isValidPhone(phone) { return /^\d{10,}$/.test(phone.replace(/\D/g, '')); }
-function redirectToDashboard() { window.location.href = '../main page/main.html'; }
+function redirectToDashboard() { window.location.href = '../main-page/main.html'; }
 
 function initializeUserData(userId) {
     // New users start completely fresh — no default categories or transactions.

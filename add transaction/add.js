@@ -256,5 +256,5 @@ window.closeModal = function() {
     toggleCategories();
     const dateInput = document.getElementById('date');
     if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
-    setTimeout(()=>{ window.location.href = '../main page/main.html'; }, 200);
+    setTimeout(()=>{ window.location.href = '../main-page/main.html'; }, 200);
 };
